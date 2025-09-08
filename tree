@@ -1,0 +1,72 @@
+city_trees = {}
+
+while True:
+    print("\na. Add new city and trees commonly found in the city")
+    print("b. Display all cities and the list of trees for all cities")
+    print("c. Display list of trees of a particular city")
+    print("d. Display cities which have the given tree")
+    print("e. Delete city")
+    print("f. Modify tree list")
+    print("g. Exit")
+
+    choice = input("Enter your choice (a-g): ")
+
+    if choice == "a":
+        city = input("Enter city name: ")
+        trees = input("Enter trees (comma separated): ").split(",")
+        city_trees[city] = trees
+        print("City added successfully.")
+
+    elif choice == "b":
+        if city_trees:
+            for city in city_trees:
+                print(city, "->", city_trees[city])
+        else:
+            print("No data available.")
+
+    elif choice == "c":
+        city = input("Enter city name to search: ")
+        if city in city_trees:
+            print("Trees in", city, ":", city_trees[city])
+        else:
+            print("City not found.")
+
+    elif choice == "d":
+        tree = input("Enter tree name to search: ")
+        found_cities = []
+        for city in city_trees:
+            if tree in city_trees[city]:
+                found_cities.append(city)
+        if found_cities:
+            print("Tree", tree, "found in:", found_cities)
+        else:
+            print("Tree not found in any city.")
+
+    elif choice == "e":
+        city = input("Enter city name to delete: ")
+        if city in city_trees:
+            confirm = input("Are you sure you want to delete " + city + "? (yes/no): ")
+            if confirm == "yes":
+                del city_trees[city]
+                print("City deleted.")
+            else:
+                print("Deletion cancelled.")
+        else:
+            print("City not found.")
+
+    elif choice == "f":
+        city = input("Enter city name: ")
+        trees = input("Enter trees to add (comma separated): ").split(",")
+        if city in city_trees:
+            city_trees[city].extend(trees)
+            print("Trees added to city.")
+        else:
+            city_trees[city] = trees
+            print("City created with given trees.")
+
+    elif choice == "g":
+        print("Exiting...")
+        break
+
+    else:
+        print("Invalid choice!")
